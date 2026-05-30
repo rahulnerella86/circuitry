@@ -1,0 +1,459 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CIRCUITRY — Blueprint-inspired Design System
+   Clean, light, industrial monospaced aesthetic
+   ============================================ */
+
+/* === Custom Properties === */
+:root {
+  --bg: #ffffff;
+  --bg-subtle: #fafafa;
+  --bg-muted: #f5f5f5;
+  --border: #e5e5e5;
+  --border-strong: #d4d4d4;
+  --text: #1a1a1a;
+  --text-secondary: #525252;
+  --text-muted: #737373;
+  --text-faint: #a3a3a3;
+  --accent: #1a1a1a;
+  --accent-hover: #404040;
+  --radius: 4px;
+}
+
+/* === Base Styles === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Scrollbar === */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* === Typography === */
+.font-heading {
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mono {
+  font-family: 'Space Mono', monospace;
+}
+
+/* === Card === */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  border-color: var(--text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* === Button Styles === */
+.btn-primary {
+  @apply px-6 py-3 font-mono text-sm font-bold uppercase tracking-wider transition-all duration-200;
+  background: var(--accent);
+  color: white;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-outline {
+  @apply px-4 py-2 font-mono text-sm font-bold uppercase tracking-wider transition-all duration-200;
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.btn-outline:hover {
+  border-color: var(--text);
+  background: var(--bg-muted);
+}
+
+/* === Component Chip === */
+.component-chip {
+  @apply px-3 py-2 text-sm font-medium cursor-pointer transition-all duration-150;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.component-chip:hover {
+  border-color: var(--text);
+  background: var(--bg-muted);
+}
+
+.component-chip.selected {
+  background: var(--text);
+  border-color: var(--text);
+  color: white;
+}
+
+/* === Platform Card === */
+.platform-card {
+  @apply p-4 cursor-pointer transition-all duration-200;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.platform-card:hover {
+  border-color: var(--text);
+  background: var(--bg-subtle);
+}
+
+.platform-card.selected {
+  background: var(--text);
+  border-color: var(--text);
+  color: white;
+}
+
+.platform-card.selected * {
+  color: white !important;
+}
+
+/* === Tab Styles === */
+.tab-button {
+  @apply px-4 py-2.5 text-sm font-bold uppercase tracking-wider transition-all duration-150;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+}
+
+.tab-button:hover {
+  color: var(--text);
+}
+
+.tab-button.active {
+  color: var(--text);
+  border-bottom-color: var(--text);
+  background: transparent;
+}
+
+/* === Code Block === */
+.code-viewer {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  line-height: 24px;
+  background: var(--bg-muted);
+}
+
+.code-line {
+  display: flex;
+  align-items: stretch;
+  min-height: 24px;
+}
+
+.code-gutter {
+  flex-shrink: 0;
+  width: 3.5rem;
+  padding: 0 1rem;
+  text-align: right;
+  color: var(--text-faint);
+  user-select: none;
+  border-right: 1px solid var(--border);
+  background: var(--bg-subtle);
+  line-height: 24px;
+}
+
+.code-line-content {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  padding: 0 1rem;
+  line-height: 24px;
+  white-space: pre;
+  overflow-x: auto;
+  background: var(--bg-muted);
+}
+
+.code-line-content .keyword { color: #7c3aed; }
+.code-line-content .string { color: #059669; }
+.code-line-content .comment { color: #9ca3af; font-style: italic; }
+.code-line-content .function { color: #2563eb; }
+.code-line-content .number { color: #d97706; }
+.code-line-content .preprocessor { color: #dc2626; }
+.code-line-content .type { color: #ca8a04; }
+
+/* Legacy class kept for any other usages */
+.code-block {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  line-height: 24px;
+  tab-size: 2;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.code-block .keyword { color: #7c3aed; }
+.code-block .string { color: #059669; }
+.code-block .comment { color: #9ca3af; font-style: italic; }
+.code-block .function { color: #2563eb; }
+.code-block .number { color: #d97706; }
+.code-block .preprocessor { color: #dc2626; }
+.code-block .type { color: #ca8a04; }
+
+/* === Circuit SVG === */
+.circuit-svg {
+  background: var(--bg-muted);
+}
+
+.circuit-svg .wire {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.circuit-svg .component-body {
+  transition: all 0.15s ease;
+}
+
+.circuit-svg .component-body:hover {
+  filter: brightness(0.9);
+}
+
+/* === Loading Spinner === */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* === Step Indicator === */
+.step-dot {
+  @apply w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-200;
+  font-family: 'Space Mono', monospace;
+  background: var(--bg-muted);
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+}
+
+.step-dot.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: white;
+}
+
+.step-dot.completed {
+  background: var(--bg-muted);
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.step-line {
+  @apply h-0.5 flex-1 mx-2 transition-all duration-300;
+  background: var(--border);
+}
+
+.step-line.completed {
+  background: var(--text);
+}
+
+/* === Validation Badge === */
+.badge-success {
+  @apply px-2.5 py-1 text-xs font-bold uppercase tracking-wider;
+  font-family: 'Space Mono', monospace;
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius);
+}
+
+.badge-warning {
+  @apply px-2.5 py-1 text-xs font-bold uppercase tracking-wider;
+  font-family: 'Space Mono', monospace;
+  background: #fefce8;
+  color: #854d0e;
+  border: 1px solid #fef08a;
+  border-radius: var(--radius);
+}
+
+.badge-error {
+  @apply px-2.5 py-1 text-xs font-bold uppercase tracking-wider;
+  font-family: 'Space Mono', monospace;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+}
+
+/* === Table === */
+.bp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+}
+
+.bp-table th {
+  text-align: left;
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--text);
+}
+
+.bp-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.bp-table tr:last-child td {
+  border-bottom: none;
+}
+
+.bp-table tr.total-row td {
+  font-weight: 700;
+  border-top: 2px solid var(--text);
+  border-bottom: none;
+}
+
+/* === Instructions Step === */
+.instruction-step {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s ease;
+}
+
+.instruction-step:hover {
+  background: var(--bg-muted);
+}
+
+.instruction-step .step-check {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-strong);
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.instruction-step .step-check.checked {
+  background: var(--text);
+  border-color: var(--text);
+  color: white;
+}
+
+/* === Glass Card (kept for circuit diagram backgrounds) === */
+.glass-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* === Section Heading === */
+.section-heading {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* === Parts List Item === */
+.part-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--text);
+  border-bottom: 1px solid var(--bg-muted);
+}
+
+.part-item:last-child {
+  border-bottom: none;
+}
+
+.part-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}

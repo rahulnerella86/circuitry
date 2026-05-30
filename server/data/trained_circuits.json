@@ -1,0 +1,456 @@
+{
+  "version": "1.1",
+  "circuits": [
+    {
+      "id": "nlm_buck_converter_high_eff",
+      "name": "High-Efficiency Buck Converter",
+      "category": "power",
+      "tags": ["buck", "step-down", "step down", "power", "regulator", "efficient", "dc-dc", "low power", "switching", "converter", "voltage", "supply", "12v", "5v", "3.3v", "portable"],
+      "description": "A high-efficiency synchronous step-down (buck) DC-DC converter designed for portable devices requiring regulated voltage output.",
+      "parameters": {
+        "input_voltage_range": [3.3, 12.0],
+        "output_voltage": 1.8,
+        "max_current": 2.0,
+        "switching_frequency": 1500000
+      },
+      "architecture": {
+        "components": [
+          {"id": "c_in", "type": "capacitor", "value": "10uF", "purpose": "Input filtering"},
+          {"id": "ic_buck", "type": "ic", "value": "TPS62130", "purpose": "Synchronous step-down converter IC"},
+          {"id": "l_out", "type": "inductor", "value": "2.2uH", "purpose": "Energy storage"},
+          {"id": "c_out", "type": "capacitor", "value": "22uF", "purpose": "Output ripple smoothing"}
+        ],
+        "connections": [
+          {"from": "ic_buck.SW", "to": "l_out.1"},
+          {"from": "l_out.2", "to": "c_out.1"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "efficiency": "92%",
+        "thermal": "Low heat generation",
+        "area": "Small footprint (3x3 mm QFN)"
+      },
+      "tradeoffs": "Uses higher switching frequency to reduce inductor size, at the cost of slightly higher switching losses. Synchronous design improves efficiency over diode rectification."
+    },
+    {
+      "id": "nlm_boost_converter",
+      "name": "Boost Step-Up Converter",
+      "category": "power",
+      "tags": ["boost", "step-up", "step up", "power", "converter", "dc-dc", "voltage", "5v to 12v", "battery boost", "inverter", "supply", "regulator", "switching"],
+      "description": "A boost converter that steps up a lower input voltage to a higher regulated output, ideal for battery-powered applications needing higher rails.",
+      "parameters": {
+        "input_voltage_range": [2.5, 5.0],
+        "output_voltage": 12.0,
+        "max_current": 1.0
+      },
+      "architecture": {
+        "components": [
+          {"id": "ic_boost", "type": "ic", "value": "MT3608", "purpose": "Boost converter IC"},
+          {"id": "l_in", "type": "inductor", "value": "4.7uH", "purpose": "Energy storage"},
+          {"id": "d_schottky", "type": "diode", "value": "SS34", "purpose": "Rectification"},
+          {"id": "c_out", "type": "capacitor", "value": "47uF", "purpose": "Output smoothing"},
+          {"id": "r_fb1", "type": "resistor", "value": "100k", "purpose": "Feedback divider upper"},
+          {"id": "r_fb2", "type": "resistor", "value": "10k", "purpose": "Feedback divider lower"}
+        ],
+        "connections": [
+          {"from": "l_in.2", "to": "ic_boost.SW"},
+          {"from": "ic_boost.SW", "to": "d_schottky.1"},
+          {"from": "d_schottky.2", "to": "c_out.1"},
+          {"from": "c_out.1", "to": "r_fb1.1"},
+          {"from": "r_fb1.2", "to": "r_fb2.1"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "efficiency": "88%",
+        "thermal": "Moderate"
+      },
+      "tradeoffs": "Higher output ripple than LDO. Switching losses increase at high input/output differential. Better efficiency than linear regulators when step-up is needed."
+    },
+    {
+      "id": "nlm_ldo_regulator",
+      "name": "LDO Linear Voltage Regulator",
+      "category": "power",
+      "tags": ["ldo", "linear", "regulator", "voltage", "power", "supply", "3.3v", "5v", "clean", "noise", "quiet", "ripple", "microcontroller power", "simple"],
+      "description": "A low-dropout linear regulator providing a clean, noise-free voltage output. Ideal for noise-sensitive analog or RF circuits.",
+      "parameters": {
+        "input_voltage": 5.0,
+        "output_voltage": 3.3,
+        "max_current": 0.8,
+        "dropout_voltage": 0.3
+      },
+      "architecture": {
+        "components": [
+          {"id": "ic_ldo", "type": "ic", "value": "AMS1117-3.3", "purpose": "LDO regulator IC"},
+          {"id": "c_in_ldo", "type": "capacitor", "value": "10uF", "purpose": "Input stabilization"},
+          {"id": "c_out_ldo", "type": "capacitor", "value": "22uF", "purpose": "Output stabilization"}
+        ],
+        "connections": [
+          {"from": "ic_ldo.IN", "to": "c_in_ldo.1"},
+          {"from": "ic_ldo.OUT", "to": "c_out_ldo.1"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "efficiency": "66%",
+        "thermal": "Dissipates heat proportional to voltage drop",
+        "noise": "Very low output noise"
+      },
+      "tradeoffs": "Simple and low-noise but inefficient when voltage difference is large. Power is wasted as heat. Use a switching regulator for high current or large Vin-Vout difference."
+    },
+    {
+      "id": "nlm_iir_filter_fpga",
+      "name": "IIR Low-Pass Filter (FPGA)",
+      "category": "fpga",
+      "tags": ["dsp", "filter", "iir", "low pass", "fpga", "verilog", "vhdl", "high performance", "low latency", "digital signal processing", "rtl", "hdl", "hardware", "logic"],
+      "description": "A digital Infinite Impulse Response (IIR) low-pass filter optimized for FPGA deployment using DSP slices.",
+      "parameters": {
+        "clock_freq": 100000000,
+        "data_width": 16,
+        "latency_cycles": 3
+      },
+      "architecture": {
+        "components": [
+          {"id": "fpga_mult", "type": "dsp_slice", "value": "18x18", "purpose": "Coefficient multiplication"},
+          {"id": "fpga_add", "type": "adder", "value": "32-bit", "purpose": "Accumulation"},
+          {"id": "fpga_reg", "type": "register", "value": "16-bit", "purpose": "Delay elements"}
+        ],
+        "connections": [
+          {"from": "fpga_mult.out", "to": "fpga_add.in"},
+          {"from": "fpga_add.out", "to": "fpga_reg.in"}
+        ],
+        "hdl": "module iir_filter (\n  input  wire        clk,\n  input  wire        rst,\n  input  wire signed [15:0] din,\n  output reg  signed [15:0] dout\n);\n  // IIR Direct Form II implementation\n  // Coefficients: b0=0.0675, b1=0.135, b2=0.0675, a1=-1.1430, a2=0.4128\n  parameter signed [17:0] B0 = 18'sd443;\n  parameter signed [17:0] B1 = 18'sd886;\n  parameter signed [17:0] A1 = -18'sd7498;\n  parameter signed [17:0] A2 = 18'sd2710;\n  reg signed [31:0] w0, w1, w2;\n  always @(posedge clk) begin\n    if (rst) begin w0<=0; w1<=0; w2<=0; dout<=0; end\n    else begin\n      w0 <= din - (A1*w1>>>13) - (A2*w2>>>13);\n      dout <= (B0*w0 + B1*w1 + B0*w2) >>> 13;\n      w2 <= w1; w1 <= w0;\n    end\n  end\nendmodule"
+      },
+      "performance": {
+        "latency": "30 ns",
+        "power": "Depends on FPGA fabric",
+        "hardware_efficiency": "High utilization of DSP blocks"
+      },
+      "tradeoffs": "IIR provides steeper roll-off with fewer taps vs FIR, saving area, but can have non-linear phase response and stability issues."
+    },
+    {
+      "id": "nlm_opamp_instrumentation",
+      "name": "Precision Instrumentation Amplifier",
+      "category": "analog",
+      "tags": ["analog", "amplifier", "instrumentation", "sensor interface", "precision", "high cmrr", "low noise", "differential", "opamp", "op-amp", "measurement", "signal conditioning", "wheatstone", "bridge"],
+      "description": "A 3-op-amp instrumentation amplifier for precise measurement of small differential signals from sensors in high-noise environments.",
+      "parameters": {
+        "supply_voltage": [5.0, 15.0],
+        "gain": 100,
+        "cmrr": "120 dB",
+        "bandwidth": 10000
+      },
+      "architecture": {
+        "components": [
+          {"id": "opamp_1", "type": "opamp", "value": "AD8220", "purpose": "Precision In-Amp IC"},
+          {"id": "r_gain", "type": "resistor", "value": "499", "purpose": "Gain setting resistor"}
+        ],
+        "connections": [
+          {"from": "opamp_1.RG1", "to": "r_gain.1"},
+          {"from": "opamp_1.RG2", "to": "r_gain.2"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "accuracy": "High precision",
+        "noise": "Low input voltage noise",
+        "power": "Moderate current draw"
+      },
+      "tradeoffs": "Excellent common-mode rejection and precision at the cost of higher component cost and lower bandwidth compared to a simple op-amp stage."
+    },
+    {
+      "id": "nlm_opamp_inverting_amp",
+      "name": "Inverting Op-Amp Amplifier",
+      "category": "analog",
+      "tags": ["opamp", "op-amp", "inverting", "amplifier", "gain", "analog", "audio", "signal", "voltage", "amplify", "ac coupled", "buffer", "non-inverting"],
+      "description": "A classic inverting op-amp amplifier configuration with configurable gain using two resistors. Suitable for audio, sensor, and signal processing applications.",
+      "parameters": {
+        "gain": -10,
+        "supply_voltage": 12.0,
+        "bandwidth": 100000
+      },
+      "architecture": {
+        "components": [
+          {"id": "opamp_u1", "type": "opamp", "value": "LM741", "purpose": "Operational amplifier"},
+          {"id": "r_in", "type": "resistor", "value": "10k", "purpose": "Input resistor"},
+          {"id": "r_fb", "type": "resistor", "value": "100k", "purpose": "Feedback resistor"},
+          {"id": "c_bypass", "type": "capacitor", "value": "100nF", "purpose": "Supply bypass"}
+        ],
+        "connections": [
+          {"from": "r_in.2", "to": "opamp_u1.IN-"},
+          {"from": "opamp_u1.IN-", "to": "r_fb.1"},
+          {"from": "r_fb.2", "to": "opamp_u1.OUT"},
+          {"from": "opamp_u1.OUT", "to": "c_bypass.1"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "linearity": "High",
+        "noise": "Low"
+      },
+      "tradeoffs": "Simple and accurate but inverts signal polarity. Gain is limited by op-amp GBW product. Use a non-inverting configuration if phase inversion is undesirable."
+    },
+    {
+      "id": "nlm_mosfet_motor_driver",
+      "name": "MOSFET H-Bridge Motor Driver",
+      "category": "analog",
+      "tags": ["mosfet", "h-bridge", "motor", "dc motor", "motor driver", "pwm", "speed control", "direction", "half bridge", "gate driver", "transistor", "drive", "actuator", "servo", "stepper"],
+      "description": "An H-bridge motor driver using N-channel and P-channel MOSFETs for bidirectional DC motor control with PWM speed control.",
+      "parameters": {
+        "supply_voltage": [6.0, 24.0],
+        "max_current": 5.0,
+        "pwm_frequency": 20000
+      },
+      "architecture": {
+        "components": [
+          {"id": "ic_drv", "type": "ic", "value": "L298N", "purpose": "H-bridge motor driver IC"},
+          {"id": "d1", "type": "diode", "value": "1N4007", "purpose": "Freewheeling diode 1"},
+          {"id": "d2", "type": "diode", "value": "1N4007", "purpose": "Freewheeling diode 2"},
+          {"id": "d3", "type": "diode", "value": "1N4007", "purpose": "Freewheeling diode 3"},
+          {"id": "d4", "type": "diode", "value": "1N4007", "purpose": "Freewheeling diode 4"},
+          {"id": "c_bulk", "type": "capacitor", "value": "100uF", "purpose": "Bulk decoupling"}
+        ],
+        "connections": [
+          {"from": "ic_drv.OUT1", "to": "d1.1"},
+          {"from": "ic_drv.OUT2", "to": "d2.1"},
+          {"from": "ic_drv.OUT3", "to": "d3.1"},
+          {"from": "ic_drv.OUT4", "to": "d4.1"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "max_current": "5A peak",
+        "efficiency": "75% at full load",
+        "response": "Fast switching"
+      },
+      "tradeoffs": "L298N has relatively high dropout voltage and gets hot at high currents. For better efficiency, use dedicated MOSFET drivers like DRV8833 or TB6612FNG."
+    },
+    {
+      "id": "nlm_iot_sensor_node",
+      "name": "Low-Power IoT Sensor Node",
+      "category": "mixed-signal",
+      "tags": ["iot", "sensor", "wifi", "wireless", "ble", "bluetooth", "low power", "battery", "esp32", "microcontroller", "mqtt", "cloud", "connected", "internet", "remote", "telemetry"],
+      "description": "A mixed-signal IoT node with environmental sensors and wireless connectivity, optimized for battery life using deep sleep modes.",
+      "parameters": {
+        "voltage": 3.3,
+        "power_mode": "Sleep (10uA), Active (150mA)",
+        "connectivity": "WiFi/BLE"
+      },
+      "architecture": {
+        "components": [
+          {"id": "mcu", "type": "microcontroller", "value": "ESP32-C3", "purpose": "Main processing and WiFi/BLE radio"},
+          {"id": "sensor_temp", "type": "sensor", "value": "BME280", "purpose": "Temperature/Humidity/Pressure via I2C"},
+          {"id": "batt_mgr", "type": "ic", "value": "TP4056", "purpose": "Li-Ion battery charger"}
+        ],
+        "connections": [
+          {"from": "mcu.I2C_SDA", "to": "sensor_temp.SDA"},
+          {"from": "mcu.I2C_SCL", "to": "sensor_temp.SCL"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "battery_life": "Months to years (duty cycle dependent)",
+        "scalability": "High",
+        "reliability": "Good"
+      },
+      "tradeoffs": "Trades continuous connectivity for battery life via deep sleep modes. Uses integrated SoC to save area but limits modularity compared to discrete radios."
+    },
+    {
+      "id": "nlm_arduino_led_blink",
+      "name": "Arduino LED Blinker & GPIO Controller",
+      "category": "microcontroller",
+      "tags": ["arduino", "led", "blink", "gpio", "microcontroller", "digital", "output", "beginner", "starter", "atmega", "uno", "nano", "pin", "button", "input", "output", "interrupt"],
+      "description": "A basic Arduino microcontroller circuit with LED control, push-button input, and GPIO expansion for beginner embedded projects.",
+      "parameters": {
+        "voltage": 5.0,
+        "platform": "Arduino Uno",
+        "clock": 16000000
+      },
+      "architecture": {
+        "components": [
+          {"id": "mcu_ard", "type": "microcontroller", "value": "ATmega328P", "purpose": "Arduino Uno microcontroller"},
+          {"id": "led1", "type": "led", "value": "Red LED", "purpose": "Status indicator"},
+          {"id": "r_led", "type": "resistor", "value": "220R", "purpose": "LED current limiting"},
+          {"id": "sw1", "type": "switch", "value": "Tactile Button", "purpose": "User input"},
+          {"id": "r_pull", "type": "resistor", "value": "10k", "purpose": "Pull-up resistor"}
+        ],
+        "connections": [
+          {"from": "mcu_ard.D13", "to": "r_led.1"},
+          {"from": "r_led.2", "to": "led1.1"},
+          {"from": "mcu_ard.D2", "to": "sw1.1"},
+          {"from": "sw1.2", "to": "r_pull.1"}
+        ],
+        "hdl": "// Arduino LED Blink + Button\n#define LED_PIN 13\n#define BTN_PIN 2\n\nvoid setup() {\n  pinMode(LED_PIN, OUTPUT);\n  pinMode(BTN_PIN, INPUT_PULLUP);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  if (digitalRead(BTN_PIN) == LOW) {\n    digitalWrite(LED_PIN, HIGH);\n    Serial.println(\"Button pressed!\");\n  } else {\n    digitalWrite(LED_PIN, !digitalRead(LED_PIN));\n    delay(500);\n  }\n}"
+      },
+      "performance": {
+        "gpio_speed": "Fast",
+        "power": "~50mA active"
+      },
+      "tradeoffs": "Simple and widely supported but limited RAM (2KB) and flash (32KB). Not suitable for complex tasks requiring network connectivity or real-time processing."
+    },
+    {
+      "id": "nlm_audio_amplifier",
+      "name": "Class-D Audio Power Amplifier",
+      "category": "analog",
+      "tags": ["audio", "amplifier", "speaker", "class-d", "sound", "music", "pwm", "stereo", "watt", "headphone", "output stage", "power amplifier", "i2s", "line out", "subwoofer"],
+      "description": "A Class-D switching audio amplifier for driving speakers efficiently. Suitable for music players, intercom systems, and embedded audio applications.",
+      "parameters": {
+        "supply_voltage": [4.5, 18.0],
+        "output_power": 10,
+        "efficiency": "90%",
+        "thd": "0.1%"
+      },
+      "architecture": {
+        "components": [
+          {"id": "ic_amp", "type": "ic", "value": "PAM8406", "purpose": "Class-D stereo amplifier IC"},
+          {"id": "c_in_l", "type": "capacitor", "value": "1uF", "purpose": "Left channel AC coupling"},
+          {"id": "c_in_r", "type": "capacitor", "value": "1uF", "purpose": "Right channel AC coupling"},
+          {"id": "c_pwr", "type": "capacitor", "value": "100uF", "purpose": "Power supply bypass"}
+        ],
+        "connections": [
+          {"from": "c_in_l.2", "to": "ic_amp.INL+"},
+          {"from": "c_in_r.2", "to": "ic_amp.INR+"},
+          {"from": "ic_amp.VDD", "to": "c_pwr.1"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "efficiency": "90%",
+        "thd": "0.1% at 1W",
+        "snr": "90dB"
+      },
+      "tradeoffs": "Excellent efficiency but produces EMI due to switching. Requires output LC filter for speaker protection. Non-suitable for high-fidelity audiophile applications."
+    },
+    {
+      "id": "nlm_rs485_communication",
+      "name": "RS-485 Half-Duplex Bus Interface",
+      "category": "communication",
+      "tags": ["rs485", "rs-485", "modbus", "serial", "communication", "bus", "industrial", "long distance", "half duplex", "transceiver", "uart", "differential", "noise immune", "protocol", "485"],
+      "description": "An RS-485 transceiver circuit for industrial long-distance differential serial communication, supporting Modbus and multi-node bus topologies.",
+      "parameters": {
+        "voltage": 5.0,
+        "max_distance": 1200,
+        "max_nodes": 32,
+        "baud_rate": 115200
+      },
+      "architecture": {
+        "components": [
+          {"id": "ic_485", "type": "ic", "value": "MAX485", "purpose": "RS-485 half-duplex transceiver"},
+          {"id": "r_term", "type": "resistor", "value": "120R", "purpose": "Bus termination resistor"},
+          {"id": "r_bias1", "type": "resistor", "value": "560R", "purpose": "Fail-safe bias resistor A"},
+          {"id": "r_bias2", "type": "resistor", "value": "560R", "purpose": "Fail-safe bias resistor B"},
+          {"id": "c_bypass", "type": "capacitor", "value": "100nF", "purpose": "Supply bypass"}
+        ],
+        "connections": [
+          {"from": "ic_485.A", "to": "r_bias1.1"},
+          {"from": "ic_485.B", "to": "r_bias2.1"},
+          {"from": "ic_485.A", "to": "r_term.1"},
+          {"from": "ic_485.B", "to": "r_term.2"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "distance": "Up to 1200m",
+        "nodes": "32 nodes per segment",
+        "noise_immunity": "Excellent"
+      },
+      "tradeoffs": "Half-duplex requires direction control pin management. Termination resistors needed at both bus ends. Not suitable for high-speed (>10Mbps) applications."
+    },
+    {
+      "id": "nlm_555_timer_pwm",
+      "name": "555 Timer PWM Generator",
+      "category": "timing",
+      "tags": ["555", "timer", "pwm", "pulse", "oscillator", "frequency", "duty cycle", "astable", "monostable", "clock", "square wave", "tone", "beep", "buzzer", "ne555", "timing"],
+      "description": "A 555-timer based astable oscillator generating adjustable PWM signals. Used for LED dimming, motor speed control, tone generation, and clock signals.",
+      "parameters": {
+        "supply_voltage": [4.5, 15.0],
+        "frequency": 1000,
+        "duty_cycle": "50%"
+      },
+      "architecture": {
+        "components": [
+          {"id": "ic_555", "type": "ic", "value": "NE555", "purpose": "Timer IC in astable mode"},
+          {"id": "r_a", "type": "resistor", "value": "10k", "purpose": "Timing resistor A"},
+          {"id": "r_b", "type": "resistor", "value": "10k", "purpose": "Timing resistor B"},
+          {"id": "c_t", "type": "capacitor", "value": "47nF", "purpose": "Timing capacitor"},
+          {"id": "c_ctrl", "type": "capacitor", "value": "10nF", "purpose": "Control voltage bypass"}
+        ],
+        "connections": [
+          {"from": "ic_555.VCC", "to": "r_a.1"},
+          {"from": "r_a.2", "to": "r_b.1"},
+          {"from": "r_b.2", "to": "ic_555.DIS"},
+          {"from": "ic_555.DIS", "to": "c_t.1"},
+          {"from": "ic_555.CTRL", "to": "c_ctrl.1"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "frequency_range": "1Hz to 500kHz",
+        "accuracy": "~1%",
+        "current_drive": "200mA output"
+      },
+      "tradeoffs": "Simple and cheap but frequency is temperature-sensitive. The 555 outputs ~50% duty cycle in astable mode; independent duty cycle control requires additional components."
+    },
+    {
+      "id": "nlm_esd_protection",
+      "name": "ESD & Overvoltage Protection Circuit",
+      "category": "protection",
+      "tags": ["esd", "protection", "overvoltage", "tvs", "transient", "surge", "electrostatic", "discharge", "zener", "clamp", "io protection", "input protection", "safe", "robust", "connector"],
+      "description": "An ESD and transient overvoltage protection circuit for I/O lines using TVS diodes and current-limiting resistors.",
+      "parameters": {
+        "working_voltage": 5.0,
+        "clamp_voltage": 6.8,
+        "peak_pulse_power": 400
+      },
+      "architecture": {
+        "components": [
+          {"id": "tvs1", "type": "diode", "value": "PRTR5V0U2X", "purpose": "Dual-line TVS ESD protection"},
+          {"id": "r_ser1", "type": "resistor", "value": "33R", "purpose": "Series current limiting"},
+          {"id": "r_ser2", "type": "resistor", "value": "33R", "purpose": "Series current limiting"}
+        ],
+        "connections": [
+          {"from": "r_ser1.2", "to": "tvs1.IO1"},
+          {"from": "r_ser2.2", "to": "tvs1.IO2"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "esd_rating": "IEC 61000-4-2 Level 4 (±8kV)",
+        "clamping": "Fast (sub-ns)",
+        "capacitance": "Low (1pF typical)"
+      },
+      "tradeoffs": "TVS diodes add capacitance to signal lines which degrades high-frequency signals. Choose low-capacitance TVS for USB, Ethernet, or RF lines."
+    },
+    {
+      "id": "nlm_i2c_spi_level_shifter",
+      "name": "Bidirectional I2C/SPI Level Shifter",
+      "category": "communication",
+      "tags": ["level shifter", "level shift", "i2c", "spi", "3.3v", "5v", "voltage", "interface", "mosfet", "bidirectional", "logic level", "convert", "translator", "uart", "serial", "gpio"],
+      "description": "A MOSFET-based bidirectional voltage level shifter for interfacing 3.3V microcontrollers with 5V peripheral devices over I2C, SPI or UART.",
+      "parameters": {
+        "low_voltage": 3.3,
+        "high_voltage": 5.0,
+        "channels": 4
+      },
+      "architecture": {
+        "components": [
+          {"id": "ic_pca", "type": "ic", "value": "TXS0104E", "purpose": "4-bit bidirectional voltage level translator"},
+          {"id": "c_lv", "type": "capacitor", "value": "100nF", "purpose": "Low-voltage side bypass"},
+          {"id": "c_hv", "type": "capacitor", "value": "100nF", "purpose": "High-voltage side bypass"}
+        ],
+        "connections": [
+          {"from": "ic_pca.VCCA", "to": "c_lv.1"},
+          {"from": "ic_pca.VCCB", "to": "c_hv.1"}
+        ],
+        "hdl": null
+      },
+      "performance": {
+        "speed": "Up to 100MHz",
+        "channels": "4 bidirectional",
+        "propagation_delay": "4ns typical"
+      },
+      "tradeoffs": "TXS0104E uses push-pull outputs and may not work well with open-drain I2C without pull-up resistors. For pure I2C, use PCA9306 or MOSFET-based discrete shifters."
+    }
+  ]
+}

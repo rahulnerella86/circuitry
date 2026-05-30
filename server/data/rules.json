@@ -1,0 +1,151 @@
+{
+  "pinAssignmentRules": [
+    {
+      "id": "analog_sensor_to_adc",
+      "description": "Analog sensors must connect to ADC-capable pins",
+      "condition": { "protocol": "analog" },
+      "requirement": { "capability": "analog" },
+      "priority": 1
+    },
+    {
+      "id": "i2c_to_i2c_bus",
+      "description": "I2C devices share the SDA/SCL bus",
+      "condition": { "protocol": "i2c" },
+      "requirement": { "capability": "i2c_sda", "shared": true },
+      "priority": 1
+    },
+    {
+      "id": "spi_to_spi_bus",
+      "description": "SPI devices share MOSI/MISO/SCK, need individual CS",
+      "condition": { "protocol": "spi" },
+      "requirement": { "capability": "spi_mosi", "shared": true, "uniqueCS": true },
+      "priority": 1
+    },
+    {
+      "id": "pwm_actuator",
+      "description": "PWM actuators (servo, motor, RGB LED) need PWM-capable pins",
+      "condition": { "protocol": "pwm" },
+      "requirement": { "capability": "pwm" },
+      "priority": 2
+    },
+    {
+      "id": "digital_output",
+      "description": "Digital actuators connect to any available digital pin",
+      "condition": { "protocol": "digital", "pinDirection": "input" },
+      "requirement": { "capability": "digital" },
+      "priority": 3
+    },
+    {
+      "id": "digital_input",
+      "description": "Digital sensors connect to any available digital pin",
+      "condition": { "protocol": "digital", "pinDirection": "output" },
+      "requirement": { "capability": "digital" },
+      "priority": 3
+    },
+    {
+      "id": "uart_device",
+      "description": "UART devices connect to TX/RX pins",
+      "condition": { "protocol": "uart" },
+      "requirement": { "capability": "uart_tx" },
+      "priority": 1
+    },
+    {
+      "id": "onewire_to_digital",
+      "description": "OneWire devices use any digital pin",
+      "condition": { "protocol": "oneWire" },
+      "requirement": { "capability": "digital" },
+      "priority": 3
+    }
+  ],
+  "supportComponentRules": [
+    {
+      "id": "relay_driver",
+      "description": "Relay requires transistor driver circuit when GPIO current is insufficient",
+      "condition": { "componentId": "relay" },
+      "addComponents": [
+        { "type": "transistor", "value": "2N2222 NPN", "quantity": 1 },
+        { "type": "resistor", "value": "1kΩ", "quantity": 1, "purpose": "base resistor" },
+        { "type": "diode", "value": "1N4007", "quantity": 1, "purpose": "flyback diode" }
+      ]
+    },
+    {
+      "id": "motor_driver",
+      "description": "DC motor needs H-bridge driver",
+      "condition": { "componentId": "dc_motor" },
+      "addComponents": [
+        { "type": "motor_driver", "value": "L293D H-Bridge", "quantity": 1 },
+        { "type": "capacitor", "value": "100nF", "quantity": 1, "purpose": "noise filter" }
+      ]
+    },
+    {
+      "id": "led_resistor",
+      "description": "LED requires current limiting resistor",
+      "condition": { "componentId": "led" },
+      "addComponents": [
+        { "type": "resistor", "value": "220Ω", "quantity": 1, "purpose": "current limiting" }
+      ]
+    },
+    {
+      "id": "ldr_voltage_divider",
+      "description": "LDR needs voltage divider resistor for analog reading",
+      "condition": { "componentId": "ldr" },
+      "addComponents": [
+        { "type": "resistor", "value": "10kΩ", "quantity": 1, "purpose": "voltage divider" }
+      ]
+    },
+    {
+      "id": "dht_pullup",
+      "description": "DHT sensors need pull-up resistor on data line",
+      "condition": { "componentType": "temperature_humidity" },
+      "addComponents": [
+        { "type": "resistor", "value": "10kΩ", "quantity": 1, "purpose": "pull-up resistor" }
+      ]
+    },
+    {
+      "id": "buzzer_resistor",
+      "description": "Buzzer benefits from series resistor",
+      "condition": { "componentId": "buzzer" },
+      "addComponents": [
+        { "type": "resistor", "value": "100Ω", "quantity": 1, "purpose": "current limiting" }
+      ]
+    }
+  ],
+  "voltageRules": [
+    {
+      "id": "3v3_warning",
+      "description": "5V component on 3.3V platform needs level shifter",
+      "condition": { "componentVoltageMin": 4.5, "platformVoltage": 3.3 },
+      "warning": "This component requires 5V but the platform operates at 3.3V. Use a level shifter or power the component from the 5V USB rail.",
+      "severity": "warning"
+    },
+    {
+      "id": "5v_to_3v3_signal",
+      "description": "3.3V signal components on 5V platform may need protection",
+      "condition": { "componentVoltageMax": 3.6, "platformVoltage": 5 },
+      "warning": "This component operates at 3.3V logic. Use the 3.3V power rail and consider a logic level converter for signal lines.",
+      "severity": "info"
+    }
+  ],
+  "featureRules": [
+    {
+      "id": "iot_requires_wifi",
+      "description": "IoT feature requires WiFi-capable platform",
+      "condition": { "feature": "iot" },
+      "requirement": { "platformCapability": "hasWifi" },
+      "fallback": "Add ESP8266 WiFi module as external component",
+      "fallbackComponent": "esp8266_module"
+    },
+    {
+      "id": "display_requires_i2c",
+      "description": "Display feature suggests adding an I2C display",
+      "condition": { "feature": "display" },
+      "suggestedComponents": ["lcd_i2c", "oled_ssd1306"]
+    },
+    {
+      "id": "automation_requires_relay",
+      "description": "Automation feature suggests adding relay for control",
+      "condition": { "feature": "automation" },
+      "suggestedComponents": ["relay"]
+    }
+  ]
+}

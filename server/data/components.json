@@ -1,0 +1,1689 @@
+{
+  "components": [
+    {
+      "id": "dht11",
+      "name": "DHT11",
+      "category": "sensor",
+      "type": "temperature_humidity",
+      "description": "Digital temperature and humidity sensor",
+      "partNumber": "DHT11",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "DATA", "type": "signal", "direction": "output", "protocol": "oneWire" },
+        { "name": "NC", "type": "nc", "direction": "none" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3.3, "max": 5.5, "typical": 5 },
+      "current": { "typical": 0.3, "max": 2.5, "unit": "mA" },
+      "protocol": "oneWire",
+      "library": "DHT",
+      "libraryInclude": "#include <DHT.h>",
+      "supportingComponents": [
+        { "type": "resistor", "value": "10kΩ", "purpose": "pull-up on DATA line", "connection": "DATA to VCC" }
+      ],
+      "icon": "thermometer"
+    },
+    {
+      "id": "dht22",
+      "name": "DHT22",
+      "category": "sensor",
+      "type": "temperature_humidity",
+      "description": "High-precision digital temperature and humidity sensor",
+      "partNumber": "AM2302",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "DATA", "type": "signal", "direction": "output", "protocol": "oneWire" },
+        { "name": "NC", "type": "nc", "direction": "none" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3.3, "max": 6, "typical": 5 },
+      "current": { "typical": 0.3, "max": 2.5, "unit": "mA" },
+      "protocol": "oneWire",
+      "library": "DHT",
+      "libraryInclude": "#include <DHT.h>",
+      "supportingComponents": [
+        { "type": "resistor", "value": "10kΩ", "purpose": "pull-up on DATA line", "connection": "DATA to VCC" }
+      ],
+      "icon": "thermometer"
+    },
+    {
+      "id": "ldr",
+      "name": "LDR (Light Dependent Resistor)",
+      "category": "sensor",
+      "type": "light",
+      "description": "Analog light sensor — resistance decreases with light intensity",
+      "pins": [
+        { "name": "PIN1", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "PIN2", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 0.5, "max": 1, "unit": "mA" },
+      "protocol": "analog",
+      "library": null,
+      "libraryInclude": null,
+      "supportingComponents": [
+        { "type": "resistor", "value": "10kΩ", "purpose": "voltage divider", "connection": "PIN1 to VCC via resistor" }
+      ],
+      "icon": "sun"
+    },
+    {
+      "id": "mq2",
+      "name": "MQ-2 Gas Sensor",
+      "category": "sensor",
+      "type": "gas",
+      "description": "Detects LPG, smoke, alcohol, propane, hydrogen, methane",
+      "partNumber": "MQ-2",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "AOUT", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "DOUT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 4.9, "max": 5.1, "typical": 5 },
+      "current": { "typical": 150, "max": 180, "unit": "mA" },
+      "protocol": "analog",
+      "library": null,
+      "libraryInclude": null,
+      "supportingComponents": [],
+      "icon": "wind"
+    },
+    {
+      "id": "mq3",
+      "name": "MQ-3 Alcohol Sensor",
+      "category": "sensor",
+      "type": "gas",
+      "description": "Detects alcohol/ethanol concentration in air",
+      "partNumber": "MQ-3",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "AOUT", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "DOUT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 4.9, "max": 5.1, "typical": 5 },
+      "current": { "typical": 150, "max": 180, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "wind"
+    },
+    {
+      "id": "mq4",
+      "name": "MQ-4 Methane Sensor",
+      "category": "sensor",
+      "type": "gas",
+      "description": "Detects methane and natural gas",
+      "partNumber": "MQ-4",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "AOUT", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "DOUT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 4.9, "max": 5.1, "typical": 5 },
+      "current": { "typical": 150, "max": 180, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "wind"
+    },
+    {
+      "id": "mq5",
+      "name": "MQ-5 Natural Gas Sensor",
+      "category": "sensor",
+      "type": "gas",
+      "description": "Detects LPG, natural gas, coal gas",
+      "partNumber": "MQ-5",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "AOUT", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "DOUT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 4.9, "max": 5.1, "typical": 5 },
+      "current": { "typical": 150, "max": 180, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "wind"
+    },
+    {
+      "id": "mq7",
+      "name": "MQ-7 Carbon Monoxide Sensor",
+      "category": "sensor",
+      "type": "gas",
+      "description": "Detects Carbon Monoxide (CO) concentration",
+      "partNumber": "MQ-7",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "AOUT", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "DOUT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 4.9, "max": 5.1, "typical": 5 },
+      "current": { "typical": 150, "max": 180, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "wind"
+    },
+    {
+      "id": "mq135",
+      "name": "MQ-135 Air Quality Sensor",
+      "category": "sensor",
+      "type": "gas",
+      "description": "Detects NH3, NOx, alcohol, benzene, smoke, CO2",
+      "partNumber": "MQ-135",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "AOUT", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "DOUT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 4.9, "max": 5.1, "typical": 5 },
+      "current": { "typical": 150, "max": 180, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "wind"
+    },
+    {
+      "id": "ccs811",
+      "name": "CCS811 CO2/VOC Sensor",
+      "category": "sensor",
+      "type": "gas",
+      "description": "Digital CO2 and VOC air quality sensor via I2C",
+      "partNumber": "CCS811",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "WAK", "type": "signal", "direction": "input", "protocol": "digital" }
+      ],
+      "voltage": { "min": 1.8, "max": 3.6, "typical": 3.3 },
+      "current": { "typical": 30, "max": 54, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x5A",
+      "library": "Adafruit_CCS811",
+      "libraryInclude": "#include <Adafruit_CCS811.h>",
+      "icon": "cloud"
+    },
+    {
+      "id": "hcsr04",
+      "name": "HC-SR04 Ultrasonic Sensor",
+      "category": "sensor",
+      "type": "distance",
+      "description": "Ultrasonic distance measurement sensor (2cm-400cm)",
+      "partNumber": "HC-SR04",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "TRIG", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "ECHO", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 4.5, "max": 5.5, "typical": 5 },
+      "current": { "typical": 15, "max": 20, "unit": "mA" },
+      "protocol": "digital",
+      "icon": "radio"
+    },
+    {
+      "id": "vl53l0x",
+      "name": "VL53L0X ToF Distance Sensor",
+      "category": "sensor",
+      "type": "distance",
+      "description": "Time-of-Flight laser distance sensor (up to 2m) via I2C",
+      "partNumber": "VL53L0X",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "XSHUT", "type": "signal", "direction": "input", "protocol": "digital" }
+      ],
+      "voltage": { "min": 2.6, "max": 3.5, "typical": 3.3 },
+      "current": { "typical": 19, "max": 40, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x29",
+      "library": "Adafruit_VL53L0X",
+      "libraryInclude": "#include <Adafruit_VL53L0X.h>",
+      "icon": "crosshair"
+    },
+    {
+      "id": "mpu6050",
+      "name": "MPU6050 Accelerometer/Gyroscope",
+      "category": "sensor",
+      "type": "motion",
+      "description": "6-axis accelerometer and gyroscope via I2C",
+      "partNumber": "MPU-6050",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "INT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 2.375, "max": 3.46, "typical": 3.3 },
+      "current": { "typical": 3.9, "max": 5, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x68",
+      "library": "MPU6050",
+      "libraryInclude": "#include <Wire.h>\n#include <MPU6050.h>",
+      "icon": "activity"
+    },
+    {
+      "id": "adxl345",
+      "name": "ADXL345 Accelerometer",
+      "category": "sensor",
+      "type": "motion",
+      "description": "3-axis digital accelerometer via I2C/SPI",
+      "partNumber": "ADXL345",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "INT1", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 2.0, "max": 3.6, "typical": 3.3 },
+      "current": { "typical": 0.14, "max": 0.3, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x53",
+      "library": "Adafruit_ADXL345_U",
+      "libraryInclude": "#include <Adafruit_Sensor.h>\n#include <Adafruit_ADXL345_U.h>",
+      "icon": "activity"
+    },
+    {
+      "id": "bno055",
+      "name": "BNO055 9-DOF IMU",
+      "category": "sensor",
+      "type": "motion",
+      "description": "9-axis absolute orientation sensor (accel + gyro + magnetometer) with sensor fusion",
+      "partNumber": "BNO055",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 2.4, "max": 3.6, "typical": 3.3 },
+      "current": { "typical": 12, "max": 20, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x28",
+      "library": "Adafruit_BNO055",
+      "libraryInclude": "#include <Adafruit_Sensor.h>\n#include <Adafruit_BNO055.h>",
+      "icon": "compass"
+    },
+    {
+      "id": "soil_moisture",
+      "name": "Soil Moisture Sensor",
+      "category": "sensor",
+      "type": "moisture",
+      "description": "Capacitive soil moisture sensor with analog output",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "AOUT", "type": "signal", "direction": "output", "protocol": "analog" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 5, "max": 10, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "droplet"
+    },
+    {
+      "id": "pir",
+      "name": "PIR Motion Sensor",
+      "category": "sensor",
+      "type": "motion_detect",
+      "description": "Passive infrared motion detection sensor",
+      "partNumber": "HC-SR501",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "OUT", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 4.5, "max": 20, "typical": 5 },
+      "current": { "typical": 0.065, "max": 0.1, "unit": "mA" },
+      "protocol": "digital",
+      "icon": "eye"
+    },
+    {
+      "id": "ir_sensor",
+      "name": "IR Obstacle Sensor",
+      "category": "sensor",
+      "type": "proximity",
+      "description": "Infrared obstacle avoidance/proximity sensor",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "OUT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 20, "max": 30, "unit": "mA" },
+      "protocol": "digital",
+      "icon": "zap"
+    },
+    {
+      "id": "flame_sensor",
+      "name": "Flame Sensor",
+      "category": "sensor",
+      "type": "fire",
+      "description": "Detects fire/flame based on infrared wavelength",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "AOUT", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "DOUT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 3.3, "max": 5.5, "typical": 5 },
+      "current": { "typical": 15, "max": 20, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "flame"
+    },
+    {
+      "id": "bmp280",
+      "name": "BMP280 Barometric Pressure Sensor",
+      "category": "sensor",
+      "type": "pressure",
+      "description": "Digital barometric pressure and temperature sensor via I2C",
+      "partNumber": "BMP280",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 1.71, "max": 3.6, "typical": 3.3 },
+      "current": { "typical": 0.003, "max": 0.72, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x76",
+      "library": "Adafruit_BMP280",
+      "libraryInclude": "#include <Wire.h>\n#include <Adafruit_BMP280.h>",
+      "icon": "cloud"
+    },
+    {
+      "id": "bme280",
+      "name": "BME280 Environmental Sensor",
+      "category": "sensor",
+      "type": "environmental",
+      "description": "Temperature, Humidity, and Pressure sensor via I2C/SPI",
+      "partNumber": "BME280",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 1.71, "max": 3.6, "typical": 3.3 },
+      "current": { "typical": 0.003, "max": 0.72, "unit": "mA" },
+      "protocol": "i2c",
+      "library": "Adafruit_BME280",
+      "libraryInclude": "#include <Wire.h>\n#include <Adafruit_Sensor.h>\n#include <Adafruit_BME280.h>",
+      "icon": "wind"
+    },
+    {
+      "id": "sht31",
+      "name": "SHT31 Temperature & Humidity",
+      "category": "sensor",
+      "type": "temperature_humidity",
+      "description": "High-accuracy digital temperature and humidity sensor",
+      "partNumber": "SHT31-DIS",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 2.15, "max": 5.5, "typical": 3.3 },
+      "current": { "typical": 0.002, "max": 1.5, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x44",
+      "library": "Adafruit_SHT31",
+      "libraryInclude": "#include <Adafruit_SHT31.h>",
+      "icon": "thermometer"
+    },
+    {
+      "id": "lm35",
+      "name": "LM35 Temperature Sensor",
+      "category": "sensor",
+      "type": "temperature",
+      "description": "Precision analog temperature sensor (10mV/°C)",
+      "partNumber": "LM35DZ",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "VOUT", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 4, "max": 30, "typical": 5 },
+      "current": { "typical": 0.06, "max": 0.1, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "thermometer"
+    },
+    {
+      "id": "ds18b20",
+      "name": "DS18B20",
+      "category": "sensor",
+      "type": "temperature",
+      "description": "1-Wire digital temperature sensor",
+      "partNumber": "DS18B20",
+      "pins": [
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "DATA", "type": "signal", "direction": "bidirectional", "protocol": "oneWire" },
+        { "name": "VDD", "type": "power", "direction": "input" }
+      ],
+      "voltage": { "min": 3.0, "max": 5.5, "typical": 5 },
+      "current": { "typical": 1, "max": 1.5, "unit": "mA" },
+      "protocol": "oneWire",
+      "library": "DallasTemperature",
+      "libraryInclude": "#include <OneWire.h>\n#include <DallasTemperature.h>",
+      "icon": "thermometer"
+    },
+    {
+      "id": "max6675",
+      "name": "MAX6675 Thermocouple",
+      "category": "sensor",
+      "type": "temperature",
+      "description": "K-type thermocouple interface, reads up to 1024°C",
+      "partNumber": "MAX6675",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "CS", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "SO", "type": "signal", "direction": "output", "protocol": "spi" }
+      ],
+      "voltage": { "min": 3.0, "max": 5.5, "typical": 5 },
+      "current": { "typical": 0.5, "max": 1.5, "unit": "mA" },
+      "protocol": "spi",
+      "library": "max6675",
+      "libraryInclude": "#include <max6675.h>",
+      "icon": "thermometer"
+    },
+    {
+      "id": "mlx90614",
+      "name": "MLX90614 IR Temperature",
+      "category": "sensor",
+      "type": "temperature",
+      "description": "Non-contact infrared temperature sensor via I2C",
+      "partNumber": "MLX90614",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 3.0, "max": 5.0, "typical": 3.3 },
+      "current": { "typical": 1.5, "max": 2, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x5A",
+      "library": "Adafruit_MLX90614",
+      "libraryInclude": "#include <Adafruit_MLX90614.h>",
+      "icon": "thermometer"
+    },
+    {
+      "id": "bh1750",
+      "name": "BH1750 Light Sensor",
+      "category": "sensor",
+      "type": "light",
+      "description": "Digital Ambient Light Sensor (LUX) via I2C",
+      "partNumber": "BH1750FVI",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 2.4, "max": 3.6, "typical": 3.3 },
+      "current": { "typical": 0.12, "max": 0.19, "unit": "mA" },
+      "protocol": "i2c",
+      "library": "BH1750",
+      "libraryInclude": "#include <Wire.h>\n#include <BH1750.h>",
+      "icon": "sun"
+    },
+    {
+      "id": "temt6000",
+      "name": "TEMT6000 Light Sensor",
+      "category": "sensor",
+      "type": "light",
+      "description": "Analog ambient light sensor with linear response",
+      "partNumber": "TEMT6000",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SIG", "type": "signal", "direction": "output", "protocol": "analog" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 0.02, "max": 0.05, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "sun"
+    },
+    {
+      "id": "apds9960",
+      "name": "APDS-9960 Gesture/Color/Proximity",
+      "category": "sensor",
+      "type": "optical",
+      "description": "RGB+gesture+proximity sensor via I2C",
+      "partNumber": "APDS-9960",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "INT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 2.4, "max": 3.6, "typical": 3.3 },
+      "current": { "typical": 1, "max": 100, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x39",
+      "library": "Adafruit_APDS9960",
+      "libraryInclude": "#include <Adafruit_APDS9960.h>",
+      "icon": "eye"
+    },
+    {
+      "id": "max4466",
+      "name": "MAX4466 Electret Microphone",
+      "category": "sensor",
+      "type": "audio",
+      "description": "Electret microphone amplifier with adjustable gain",
+      "partNumber": "MAX4466",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "OUT", "type": "signal", "direction": "output", "protocol": "analog" }
+      ],
+      "voltage": { "min": 2.4, "max": 5.5, "typical": 3.3 },
+      "current": { "typical": 0.024, "max": 0.05, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "mic"
+    },
+    {
+      "id": "ina219",
+      "name": "INA219 Current/Power Monitor",
+      "category": "sensor",
+      "type": "electrical",
+      "description": "High-side I2C current/power monitor (±3.2A, 26V)",
+      "partNumber": "INA219",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "VIN+", "type": "signal", "direction": "input", "protocol": "analog" },
+        { "name": "VIN-", "type": "signal", "direction": "input", "protocol": "analog" }
+      ],
+      "voltage": { "min": 3.0, "max": 5.5, "typical": 3.3 },
+      "current": { "typical": 1, "max": 1.5, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x40",
+      "library": "Adafruit_INA219",
+      "libraryInclude": "#include <Adafruit_INA219.h>",
+      "icon": "zap"
+    },
+    {
+      "id": "acs712",
+      "name": "ACS712 Current Sensor",
+      "category": "sensor",
+      "type": "electrical",
+      "description": "Hall-effect linear current sensor (±5A/±20A/±30A)",
+      "partNumber": "ACS712",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "OUT", "type": "signal", "direction": "output", "protocol": "analog" }
+      ],
+      "voltage": { "min": 4.5, "max": 5.5, "typical": 5 },
+      "current": { "typical": 10, "max": 13, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "zap"
+    },
+    {
+      "id": "zmpt101b",
+      "name": "ZMPT101B Voltage Sensor",
+      "category": "sensor",
+      "type": "electrical",
+      "description": "AC voltage measurement transformer module (up to 250V)",
+      "partNumber": "ZMPT101B",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "OUT", "type": "signal", "direction": "output", "protocol": "analog" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 5, "max": 10, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "zap"
+    },
+    {
+      "id": "max30102",
+      "name": "MAX30102 SpO2/Heart Rate",
+      "category": "sensor",
+      "type": "biometric",
+      "description": "Pulse oximetry and heart rate sensor via I2C",
+      "partNumber": "MAX30102",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "INT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 1.7, "max": 2.0, "typical": 1.8 },
+      "current": { "typical": 0.6, "max": 50, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x57",
+      "library": "MAX30105",
+      "libraryInclude": "#include <MAX30105.h>",
+      "icon": "heart"
+    },
+    {
+      "id": "hx711",
+      "name": "HX711 Load Cell Amplifier",
+      "category": "sensor",
+      "type": "weight",
+      "description": "24-bit ADC for load cell / weight measurement",
+      "partNumber": "HX711",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "DT", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "digital" }
+      ],
+      "voltage": { "min": 2.6, "max": 5.5, "typical": 5 },
+      "current": { "typical": 1.5, "max": 2, "unit": "mA" },
+      "protocol": "digital",
+      "library": "HX711",
+      "libraryInclude": "#include <HX711.h>",
+      "icon": "trending-down"
+    },
+    {
+      "id": "potentiometer",
+      "name": "Potentiometer",
+      "category": "sensor",
+      "type": "analog_input",
+      "description": "Variable resistor for manual analog input",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "WIPER", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 0, "max": 5, "typical": 5 },
+      "current": { "typical": 0.5, "max": 1, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "sliders"
+    },
+    {
+      "id": "push_button",
+      "name": "Push Button",
+      "category": "sensor",
+      "type": "digital_input",
+      "description": "Momentary push button switch",
+      "pins": [
+        { "name": "PIN1", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "PIN2", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 0, "max": 5, "typical": 5 },
+      "current": { "typical": 0, "max": 0.01, "unit": "mA" },
+      "protocol": "digital",
+      "supportingComponents": [
+        { "type": "resistor", "value": "10kΩ", "purpose": "pull-up/down resistor", "connection": "PIN1 to VCC/GND" }
+      ],
+      "icon": "mouse-pointer"
+    },
+    {
+      "id": "joystick",
+      "name": "Joystick Module",
+      "category": "sensor",
+      "type": "analog_input",
+      "description": "2-axis analog joystick with push button",
+      "pins": [
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "VRX", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "VRY", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "SW", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 2, "max": 5, "unit": "mA" },
+      "protocol": "analog",
+      "icon": "navigation"
+    },
+    {
+      "id": "rotary_encoder",
+      "name": "Rotary Encoder",
+      "category": "sensor",
+      "type": "digital_input",
+      "description": "Incremental rotary encoder with push button",
+      "partNumber": "KY-040",
+      "pins": [
+        { "name": "CLK", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "DT", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "SW", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 1, "max": 2, "unit": "mA" },
+      "protocol": "digital",
+      "icon": "refresh-cw"
+    },
+    {
+      "id": "keypad_4x4",
+      "name": "4x4 Matrix Keypad",
+      "category": "sensor",
+      "type": "digital_input",
+      "description": "16-key matrix membrane keypad",
+      "pins": [
+        { "name": "R1", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "R2", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "R3", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "R4", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "C1", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "C2", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "C3", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "C4", "type": "signal", "direction": "input", "protocol": "digital" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 0, "max": 0.01, "unit": "mA" },
+      "protocol": "digital",
+      "library": "Keypad",
+      "libraryInclude": "#include <Keypad.h>",
+      "icon": "grid"
+    },
+    {
+      "id": "ttp223",
+      "name": "TTP223 Capacitive Touch",
+      "category": "sensor",
+      "type": "digital_input",
+      "description": "Capacitive touch sensor module",
+      "partNumber": "TTP223",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "SIG", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 2.0, "max": 5.5, "typical": 3.3 },
+      "current": { "typical": 0.002, "max": 0.008, "unit": "mA" },
+      "protocol": "digital",
+      "icon": "hand"
+    },
+    {
+      "id": "rtc_ds3231",
+      "name": "RTC DS3231",
+      "category": "sensor",
+      "type": "clock",
+      "description": "High-precision real-time clock via I2C",
+      "partNumber": "DS3231",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 2.3, "max": 5.5, "typical": 3.3 },
+      "current": { "typical": 0.2, "max": 0.3, "unit": "mA" },
+      "protocol": "i2c",
+      "library": "RTClib",
+      "libraryInclude": "#include <Wire.h>\n#include <RTClib.h>",
+      "icon": "clock"
+    },
+    {
+      "id": "led",
+      "name": "LED",
+      "category": "actuator",
+      "type": "light_output",
+      "description": "Standard light-emitting diode",
+      "pins": [
+        { "name": "ANODE", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "CATHODE", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 1.8, "max": 3.3, "typical": 2.0 },
+      "current": { "typical": 20, "max": 20, "unit": "mA" },
+      "protocol": "digital",
+      "supportingComponents": [
+        { "type": "resistor", "value": "220Ω", "purpose": "current limiting", "connection": "series with ANODE" }
+      ],
+      "icon": "lightbulb"
+    },
+    {
+      "id": "rgb_led",
+      "name": "RGB LED (Common Cathode)",
+      "category": "actuator",
+      "type": "light_output",
+      "description": "Multi-color LED with red, green, blue channels",
+      "pins": [
+        { "name": "RED", "type": "signal", "direction": "input", "protocol": "pwm" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "GREEN", "type": "signal", "direction": "input", "protocol": "pwm" },
+        { "name": "BLUE", "type": "signal", "direction": "input", "protocol": "pwm" }
+      ],
+      "voltage": { "min": 1.8, "max": 3.3, "typical": 2.0 },
+      "current": { "typical": 60, "max": 60, "unit": "mA" },
+      "protocol": "pwm",
+      "supportingComponents": [
+        { "type": "resistor", "value": "220Ω", "purpose": "current limiting for RED", "connection": "series with RED" },
+        { "type": "resistor", "value": "220Ω", "purpose": "current limiting for GREEN", "connection": "series with GREEN" },
+        { "type": "resistor", "value": "220Ω", "purpose": "current limiting for BLUE", "connection": "series with BLUE" }
+      ],
+      "icon": "palette"
+    },
+    {
+      "id": "ws2812b",
+      "name": "WS2812B NeoPixel Strip",
+      "category": "actuator",
+      "type": "light_output",
+      "description": "Addressable RGB LED strip (NeoPixel)",
+      "partNumber": "WS2812B",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "DIN", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3.7, "max": 5.3, "typical": 5 },
+      "current": { "typical": 60, "max": 60, "unit": "mA" },
+      "protocol": "digital",
+      "library": "Adafruit_NeoPixel",
+      "libraryInclude": "#include <Adafruit_NeoPixel.h>",
+      "icon": "target"
+    },
+    {
+      "id": "relay",
+      "name": "Relay Module (5V)",
+      "category": "actuator",
+      "type": "switch",
+      "description": "Electromagnetic relay for switching high-power loads",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "IN", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "COM", "type": "output", "direction": "output" },
+        { "name": "NO", "type": "output", "direction": "output" },
+        { "name": "NC", "type": "output", "direction": "output" }
+      ],
+      "voltage": { "min": 4.5, "max": 5.5, "typical": 5 },
+      "current": { "typical": 70, "max": 90, "unit": "mA" },
+      "protocol": "digital",
+      "supportingComponents": [
+        { "type": "transistor", "value": "2N2222", "purpose": "GPIO driver for relay coil", "connection": "base via 1kΩ resistor to GPIO" },
+        { "type": "diode", "value": "1N4007", "purpose": "flyback protection diode", "connection": "reverse across relay coil" }
+      ],
+      "icon": "toggle-right"
+    },
+    {
+      "id": "dc_motor",
+      "name": "DC Motor",
+      "category": "actuator",
+      "type": "motor",
+      "description": "Standard brushed DC motor",
+      "pins": [
+        { "name": "MOTOR+", "type": "power", "direction": "input" },
+        { "name": "MOTOR-", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3, "max": 12, "typical": 5 },
+      "current": { "typical": 200, "max": 800, "unit": "mA" },
+      "protocol": "pwm",
+      "supportingComponents": [
+        { "type": "motor_driver", "value": "L293D", "purpose": "H-bridge motor driver", "connection": "motor terminals via driver outputs" },
+        { "type": "capacitor", "value": "100nF", "purpose": "noise suppression", "connection": "across motor terminals" }
+      ],
+      "icon": "settings"
+    },
+    {
+      "id": "servo",
+      "name": "Servo Motor (SG90)",
+      "category": "actuator",
+      "type": "servo",
+      "description": "Micro servo motor with 180° rotation",
+      "partNumber": "SG90",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SIGNAL", "type": "signal", "direction": "input", "protocol": "pwm" }
+      ],
+      "voltage": { "min": 4.0, "max": 7.2, "typical": 5 },
+      "current": { "typical": 100, "max": 650, "unit": "mA" },
+      "protocol": "pwm",
+      "library": "Servo",
+      "libraryInclude": "#include <Servo.h>",
+      "supportingComponents": [
+        { "type": "capacitor", "value": "100µF", "purpose": "decoupling capacitor for power supply", "connection": "across VCC and GND" }
+      ],
+      "icon": "rotate-cw"
+    },
+    {
+      "id": "buzzer",
+      "name": "Piezo Buzzer",
+      "category": "actuator",
+      "type": "sound",
+      "description": "Electromagnetic buzzer for audible alerts",
+      "pins": [
+        { "name": "POSITIVE", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "NEGATIVE", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 25, "max": 35, "unit": "mA" },
+      "protocol": "digital",
+      "supportingComponents": [
+        { "type": "resistor", "value": "100Ω", "purpose": "current limiting", "connection": "series with POSITIVE" }
+      ],
+      "icon": "volume-2"
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper Motor (28BYJ-48)",
+      "category": "actuator",
+      "type": "stepper",
+      "description": "Unipolar stepper motor with ULN2003 driver",
+      "partNumber": "28BYJ-48",
+      "pins": [
+        { "name": "IN1", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "IN2", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "IN3", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "IN4", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 5, "max": 12, "typical": 5 },
+      "current": { "typical": 240, "max": 300, "unit": "mA" },
+      "protocol": "digital",
+      "library": "Stepper",
+      "libraryInclude": "#include <Stepper.h>",
+      "supportingComponents": [
+        { "type": "driver", "value": "ULN2003", "purpose": "stepper motor driver board", "connection": "connects between MCU and motor" }
+      ],
+      "icon": "disc"
+    },
+    {
+      "id": "nema17",
+      "name": "NEMA17 Stepper Motor",
+      "category": "actuator",
+      "type": "stepper",
+      "description": "Bipolar stepper motor, 1.8° step angle, high torque",
+      "partNumber": "17HS4401",
+      "pins": [
+        { "name": "A1", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "A2", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "B1", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "B2", "type": "signal", "direction": "input", "protocol": "digital" }
+      ],
+      "voltage": { "min": 4.5, "max": 12, "typical": 12 },
+      "current": { "typical": 1700, "max": 2000, "unit": "mA" },
+      "protocol": "digital",
+      "supportingComponents": [
+        { "type": "driver", "value": "A4988", "purpose": "microstepping driver", "connection": "between MCU and motor coils" }
+      ],
+      "icon": "disc"
+    },
+    {
+      "id": "solenoid",
+      "name": "Solenoid Valve",
+      "category": "actuator",
+      "type": "solenoid",
+      "description": "12V solenoid valve for liquid/gas flow control",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 11, "max": 13, "typical": 12 },
+      "current": { "typical": 300, "max": 500, "unit": "mA" },
+      "protocol": "digital",
+      "supportingComponents": [
+        { "type": "transistor", "value": "TIP120", "purpose": "power switching", "connection": "Darlington driver for solenoid" },
+        { "type": "diode", "value": "1N4007", "purpose": "flyback protection", "connection": "reverse across solenoid" }
+      ],
+      "icon": "droplet"
+    },
+    {
+      "id": "water_pump",
+      "name": "Mini Water Pump",
+      "category": "actuator",
+      "type": "pump",
+      "description": "Submersible DC water pump (3-6V)",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3, "max": 6, "typical": 5 },
+      "current": { "typical": 130, "max": 220, "unit": "mA" },
+      "protocol": "digital",
+      "supportingComponents": [
+        { "type": "transistor", "value": "2N2222", "purpose": "switching transistor", "connection": "base via 1kΩ to GPIO" },
+        { "type": "diode", "value": "1N4007", "purpose": "flyback protection", "connection": "reverse across motor" }
+      ],
+      "icon": "droplet"
+    },
+    {
+      "id": "l298n",
+      "name": "L298N Motor Driver",
+      "category": "actuator",
+      "type": "motor_driver",
+      "description": "Dual H-bridge motor driver for DC/Stepper motors",
+      "partNumber": "L298N",
+      "pins": [
+        { "name": "IN1", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "IN2", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "IN3", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "IN4", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "ENA", "type": "signal", "direction": "input", "protocol": "pwm" },
+        { "name": "ENB", "type": "signal", "direction": "input", "protocol": "pwm" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "VCC", "type": "power", "direction": "input" }
+      ],
+      "voltage": { "min": 5, "max": 35, "typical": 12 },
+      "current": { "typical": 36, "max": 2000, "unit": "mA" },
+      "protocol": "digital",
+      "icon": "cpu"
+    },
+    {
+      "id": "a4988",
+      "name": "A4988 Stepper Driver",
+      "category": "actuator",
+      "type": "motor_driver",
+      "description": "Microstepping stepper motor driver (up to 2A)",
+      "partNumber": "A4988",
+      "pins": [
+        { "name": "STEP", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "DIR", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "EN", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "VMOT", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "VDD", "type": "power", "direction": "input" }
+      ],
+      "voltage": { "min": 8, "max": 35, "typical": 12 },
+      "current": { "typical": 10, "max": 2000, "unit": "mA" },
+      "protocol": "digital",
+      "icon": "cpu"
+    },
+    {
+      "id": "lcd_i2c",
+      "name": "LCD 16x2 (I2C)",
+      "category": "display",
+      "type": "lcd",
+      "description": "16x2 alphanumeric LCD with I2C backpack",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 4.5, "max": 5.5, "typical": 5 },
+      "current": { "typical": 40, "max": 120, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x27",
+      "library": "LiquidCrystal_I2C",
+      "libraryInclude": "#include <Wire.h>\n#include <LiquidCrystal_I2C.h>",
+      "icon": "monitor"
+    },
+    {
+      "id": "lcd_20x4_i2c",
+      "name": "LCD 20x4 (I2C)",
+      "category": "display",
+      "type": "lcd",
+      "description": "20x4 alphanumeric LCD with I2C backpack",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 4.5, "max": 5.5, "typical": 5 },
+      "current": { "typical": 40, "max": 120, "unit": "mA" },
+      "protocol": "i2c",
+      "library": "LiquidCrystal_I2C",
+      "icon": "monitor"
+    },
+    {
+      "id": "oled_ssd1306",
+      "name": "OLED Display SSD1306 (128x64)",
+      "category": "display",
+      "type": "oled",
+      "description": "0.96 inch OLED display with I2C interface",
+      "partNumber": "SSD1306",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCL", "type": "signal", "direction": "input", "protocol": "i2c" },
+        { "name": "SDA", "type": "signal", "direction": "bidirectional", "protocol": "i2c" }
+      ],
+      "voltage": { "min": 3.0, "max": 5.0, "typical": 3.3 },
+      "current": { "typical": 8, "max": 20, "unit": "mA" },
+      "protocol": "i2c",
+      "i2cAddress": "0x3C",
+      "library": "Adafruit_SSD1306",
+      "libraryInclude": "#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>",
+      "icon": "smartphone"
+    },
+    {
+      "id": "seven_segment",
+      "name": "7-Segment Display",
+      "category": "display",
+      "type": "seven_segment",
+      "description": "Single digit 7-segment LED display (common cathode)",
+      "pins": [
+        { "name": "A", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "B", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "C", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "D", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "E", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "F", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "G", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 1.8, "max": 2.4, "typical": 2.0 },
+      "current": { "typical": 140, "max": 160, "unit": "mA" },
+      "protocol": "digital",
+      "supportingComponents": [
+        { "type": "resistor", "value": "220Ω", "purpose": "current limiting per segment", "connection": "series with each segment pin" }
+      ],
+      "icon": "hash"
+    },
+    {
+      "id": "tft_ili9341",
+      "name": "TFT ILI9341 (2.4\" 320x240)",
+      "category": "display",
+      "type": "tft",
+      "description": "2.4 inch color TFT LCD display via SPI",
+      "partNumber": "ILI9341",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "CS", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "RESET", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "DC", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "MOSI", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "LED", "type": "power", "direction": "input" },
+        { "name": "MISO", "type": "signal", "direction": "output", "protocol": "spi" }
+      ],
+      "voltage": { "min": 3.0, "max": 5.0, "typical": 3.3 },
+      "current": { "typical": 50, "max": 100, "unit": "mA" },
+      "protocol": "spi",
+      "library": "Adafruit_ILI9341",
+      "libraryInclude": "#include <SPI.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_ILI9341.h>",
+      "icon": "monitor"
+    },
+    {
+      "id": "hc05",
+      "name": "HC-05 Bluetooth Module",
+      "category": "communication",
+      "type": "bluetooth",
+      "description": "Serial Bluetooth module for wireless communication",
+      "partNumber": "HC-05",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "TXD", "type": "signal", "direction": "output", "protocol": "uart" },
+        { "name": "RXD", "type": "signal", "direction": "input", "protocol": "uart" }
+      ],
+      "voltage": { "min": 3.6, "max": 6, "typical": 5 },
+      "current": { "typical": 30, "max": 40, "unit": "mA" },
+      "protocol": "uart",
+      "library": "SoftwareSerial",
+      "libraryInclude": "#include <SoftwareSerial.h>",
+      "supportingComponents": [
+        { "type": "resistor", "value": "1kΩ + 2kΩ", "purpose": "voltage divider on RXD (for 3.3V logic)", "connection": "voltage divider on RXD line" }
+      ],
+      "icon": "bluetooth"
+    },
+    {
+      "id": "nrf24l01",
+      "name": "NRF24L01 Radio Module",
+      "category": "communication",
+      "type": "radio",
+      "description": "2.4GHz wireless transceiver via SPI",
+      "partNumber": "NRF24L01+",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "CE", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "CSN", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MOSI", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MISO", "type": "signal", "direction": "output", "protocol": "spi" }
+      ],
+      "voltage": { "min": 1.9, "max": 3.6, "typical": 3.3 },
+      "current": { "typical": 12, "max": 14, "unit": "mA" },
+      "protocol": "spi",
+      "library": "RF24",
+      "libraryInclude": "#include <SPI.h>\n#include <RF24.h>",
+      "supportingComponents": [
+        { "type": "capacitor", "value": "10µF", "purpose": "power supply decoupling", "connection": "across VCC and GND" }
+      ],
+      "icon": "wifi"
+    },
+    {
+      "id": "lora_sx1278",
+      "name": "LoRa SX1278 Module",
+      "category": "communication",
+      "type": "lora",
+      "description": "Long-range LoRa transceiver (433/868/915MHz) via SPI",
+      "partNumber": "SX1278",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MOSI", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MISO", "type": "signal", "direction": "output", "protocol": "spi" },
+        { "name": "NSS", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "RST", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "DIO0", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 1.8, "max": 3.7, "typical": 3.3 },
+      "current": { "typical": 10, "max": 120, "unit": "mA" },
+      "protocol": "spi",
+      "library": "LoRa",
+      "libraryInclude": "#include <SPI.h>\n#include <LoRa.h>",
+      "icon": "radio"
+    },
+    {
+      "id": "sim800l",
+      "name": "SIM800L GSM Module",
+      "category": "communication",
+      "type": "gsm",
+      "description": "Quad-band GSM/GPRS module for SMS, calls, and data",
+      "partNumber": "SIM800L",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "TXD", "type": "signal", "direction": "output", "protocol": "uart" },
+        { "name": "RXD", "type": "signal", "direction": "input", "protocol": "uart" },
+        { "name": "RST", "type": "signal", "direction": "input", "protocol": "digital" }
+      ],
+      "voltage": { "min": 3.4, "max": 4.4, "typical": 4.0 },
+      "current": { "typical": 100, "max": 2000, "unit": "mA" },
+      "protocol": "uart",
+      "icon": "phone"
+    },
+    {
+      "id": "neo6m",
+      "name": "NEO-6M GPS Module",
+      "category": "communication",
+      "type": "gps",
+      "description": "GPS receiver module with UART interface",
+      "partNumber": "NEO-6M",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "RX", "type": "signal", "direction": "input", "protocol": "uart" },
+        { "name": "TX", "type": "signal", "direction": "output", "protocol": "uart" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 2.7, "max": 5.0, "typical": 3.3 },
+      "current": { "typical": 45, "max": 67, "unit": "mA" },
+      "protocol": "uart",
+      "library": "TinyGPSPlus",
+      "libraryInclude": "#include <TinyGPS++.h>\n#include <SoftwareSerial.h>",
+      "icon": "map-pin"
+    },
+    {
+      "id": "mcp2515",
+      "name": "MCP2515 CAN Bus Module",
+      "category": "communication",
+      "type": "can",
+      "description": "CAN bus controller with SPI interface",
+      "partNumber": "MCP2515",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "CS", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MOSI", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MISO", "type": "signal", "direction": "output", "protocol": "spi" },
+        { "name": "INT", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 2.7, "max": 5.5, "typical": 5 },
+      "current": { "typical": 5, "max": 10, "unit": "mA" },
+      "protocol": "spi",
+      "library": "mcp_can",
+      "libraryInclude": "#include <mcp_can.h>\n#include <SPI.h>",
+      "icon": "git-branch"
+    },
+    {
+      "id": "w5500",
+      "name": "W5500 Ethernet Module",
+      "category": "communication",
+      "type": "ethernet",
+      "description": "Hardwired TCP/IP embedded Ethernet controller via SPI",
+      "partNumber": "W5500",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "CS", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MOSI", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MISO", "type": "signal", "direction": "output", "protocol": "spi" },
+        { "name": "INT", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "RST", "type": "signal", "direction": "input", "protocol": "digital" }
+      ],
+      "voltage": { "min": 2.97, "max": 3.63, "typical": 3.3 },
+      "current": { "typical": 130, "max": 185, "unit": "mA" },
+      "protocol": "spi",
+      "library": "Ethernet",
+      "libraryInclude": "#include <Ethernet.h>",
+      "icon": "globe"
+    },
+    {
+      "id": "sd_card",
+      "name": "SD Card Module",
+      "category": "communication",
+      "type": "storage",
+      "description": "MicroSD card reader/writer via SPI",
+      "pins": [
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "CS", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MOSI", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "MISO", "type": "signal", "direction": "output", "protocol": "spi" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 50, "max": 100, "unit": "mA" },
+      "protocol": "spi",
+      "library": "SD",
+      "libraryInclude": "#include <SPI.h>\n#include <SD.h>",
+      "icon": "hard-drive"
+    },
+    {
+      "id": "rfid_rc522",
+      "name": "RFID RC522",
+      "category": "communication",
+      "type": "rfid",
+      "description": "RFID read/write module via SPI",
+      "partNumber": "MFRC522",
+      "pins": [
+        { "name": "3.3V", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "RST", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "IRQ", "type": "signal", "direction": "output", "protocol": "digital" },
+        { "name": "MISO", "type": "signal", "direction": "output", "protocol": "spi" },
+        { "name": "MOSI", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "SCK", "type": "signal", "direction": "input", "protocol": "spi" },
+        { "name": "SDA", "type": "signal", "direction": "input", "protocol": "spi" }
+      ],
+      "voltage": { "min": 2.5, "max": 3.3, "typical": 3.3 },
+      "current": { "typical": 13, "max": 26, "unit": "mA" },
+      "protocol": "spi",
+      "library": "MFRC522",
+      "libraryInclude": "#include <SPI.h>\n#include <MFRC522.h>",
+      "icon": "credit-card"
+    },
+    {
+      "id": "resistor",
+      "name": "Resistor",
+      "category": "discrete",
+      "type": "passive",
+      "description": "General purpose resistor",
+      "pins": [
+        { "name": "P1", "type": "passive", "direction": "none" },
+        { "name": "P2", "type": "passive", "direction": "none" }
+      ],
+      "icon": "minus"
+    },
+    {
+      "id": "capacitor",
+      "name": "Capacitor",
+      "category": "discrete",
+      "type": "passive",
+      "description": "General purpose capacitor",
+      "pins": [
+        { "name": "P1", "type": "passive", "direction": "none" },
+        { "name": "P2", "type": "passive", "direction": "none" }
+      ],
+      "icon": "pause"
+    },
+    {
+      "id": "inductor",
+      "name": "Inductor",
+      "category": "discrete",
+      "type": "passive",
+      "description": "General purpose inductor/coil",
+      "pins": [
+        { "name": "P1", "type": "passive", "direction": "none" },
+        { "name": "P2", "type": "passive", "direction": "none" }
+      ],
+      "icon": "loader"
+    },
+    {
+      "id": "transistor_bjt",
+      "name": "NPN Transistor (2N2222)",
+      "category": "discrete",
+      "type": "semiconductor",
+      "description": "NPN Bipolar Junction Transistor",
+      "partNumber": "2N2222",
+      "pins": [
+        { "name": "EMITTER", "type": "passive", "direction": "none" },
+        { "name": "BASE", "type": "passive", "direction": "none" },
+        { "name": "COLLECTOR", "type": "passive", "direction": "none" }
+      ],
+      "icon": "triangle"
+    },
+    {
+      "id": "transistor_pnp",
+      "name": "PNP Transistor (2N3906)",
+      "category": "discrete",
+      "type": "semiconductor",
+      "description": "PNP Bipolar Junction Transistor",
+      "partNumber": "2N3906",
+      "pins": [
+        { "name": "EMITTER", "type": "passive", "direction": "none" },
+        { "name": "BASE", "type": "passive", "direction": "none" },
+        { "name": "COLLECTOR", "type": "passive", "direction": "none" }
+      ],
+      "icon": "triangle"
+    },
+    {
+      "id": "mosfet_n",
+      "name": "N-Channel MOSFET (IRFZ44N)",
+      "category": "discrete",
+      "type": "semiconductor",
+      "description": "N-Channel Power MOSFET",
+      "partNumber": "IRFZ44N",
+      "pins": [
+        { "name": "GATE", "type": "passive", "direction": "none" },
+        { "name": "DRAIN", "type": "passive", "direction": "none" },
+        { "name": "SOURCE", "type": "passive", "direction": "none" }
+      ],
+      "icon": "layers"
+    },
+    {
+      "id": "mosfet_p",
+      "name": "P-Channel MOSFET (IRF9540)",
+      "category": "discrete",
+      "type": "semiconductor",
+      "description": "P-Channel Power MOSFET for high-side switching",
+      "partNumber": "IRF9540",
+      "pins": [
+        { "name": "GATE", "type": "passive", "direction": "none" },
+        { "name": "DRAIN", "type": "passive", "direction": "none" },
+        { "name": "SOURCE", "type": "passive", "direction": "none" }
+      ],
+      "icon": "layers"
+    },
+    {
+      "id": "diode",
+      "name": "Diode (1N4007)",
+      "category": "discrete",
+      "type": "semiconductor",
+      "description": "General purpose rectifier diode",
+      "partNumber": "1N4007",
+      "pins": [
+        { "name": "ANODE", "type": "passive", "direction": "none" },
+        { "name": "CATHODE", "type": "passive", "direction": "none" }
+      ],
+      "icon": "play"
+    },
+    {
+      "id": "zener_diode",
+      "name": "Zener Diode (5.1V)",
+      "category": "discrete",
+      "type": "semiconductor",
+      "description": "Voltage regulation zener diode",
+      "partNumber": "1N4733A",
+      "pins": [
+        { "name": "ANODE", "type": "passive", "direction": "none" },
+        { "name": "CATHODE", "type": "passive", "direction": "none" }
+      ],
+      "icon": "play"
+    },
+    {
+      "id": "tvs_diode",
+      "name": "TVS Diode (SMBJ5.0A)",
+      "category": "discrete",
+      "type": "protection",
+      "description": "Transient Voltage Suppressor for ESD/surge protection",
+      "partNumber": "SMBJ5.0A",
+      "pins": [
+        { "name": "ANODE", "type": "passive", "direction": "none" },
+        { "name": "CATHODE", "type": "passive", "direction": "none" }
+      ],
+      "icon": "shield"
+    },
+    {
+      "id": "polyfuse",
+      "name": "Polyfuse (500mA)",
+      "category": "discrete",
+      "type": "protection",
+      "description": "Resettable PTC fuse for overcurrent protection",
+      "partNumber": "RXEF050",
+      "pins": [
+        { "name": "P1", "type": "passive", "direction": "none" },
+        { "name": "P2", "type": "passive", "direction": "none" }
+      ],
+      "icon": "shield"
+    },
+    {
+      "id": "optocoupler",
+      "name": "Optocoupler (PC817)",
+      "category": "discrete",
+      "type": "isolation",
+      "description": "Optical isolation for signal coupling between circuits",
+      "partNumber": "PC817",
+      "pins": [
+        { "name": "ANODE", "type": "signal", "direction": "input", "protocol": "digital" },
+        { "name": "CATHODE", "type": "ground", "direction": "input" },
+        { "name": "EMITTER", "type": "ground", "direction": "input" },
+        { "name": "COLLECTOR", "type": "signal", "direction": "output", "protocol": "digital" }
+      ],
+      "voltage": { "min": 3.3, "max": 5, "typical": 5 },
+      "current": { "typical": 10, "max": 50, "unit": "mA" },
+      "protocol": "digital",
+      "icon": "shield"
+    },
+    {
+      "id": "op_amp_lm358",
+      "name": "LM358 Dual Op-Amp",
+      "category": "discrete",
+      "type": "analog_ic",
+      "description": "Dual operational amplifier, low power",
+      "partNumber": "LM358",
+      "pins": [
+        { "name": "OUT1", "type": "signal", "direction": "output", "protocol": "analog" },
+        { "name": "IN1-", "type": "signal", "direction": "input", "protocol": "analog" },
+        { "name": "IN1+", "type": "signal", "direction": "input", "protocol": "analog" },
+        { "name": "VCC", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" }
+      ],
+      "voltage": { "min": 3.0, "max": 32, "typical": 5 },
+      "current": { "typical": 0.7, "max": 1.2, "unit": "mA" },
+      "icon": "triangle"
+    },
+    {
+      "id": "battery_9v",
+      "name": "9V Battery",
+      "category": "power",
+      "type": "source",
+      "description": "Standard 9V alkaline battery",
+      "pins": [
+        { "name": "POSITIVE", "type": "power", "direction": "output" },
+        { "name": "NEGATIVE", "type": "ground", "direction": "output" }
+      ],
+      "voltage": { "min": 7, "max": 9.6, "typical": 9 },
+      "current": { "typical": 500, "max": 500, "unit": "mAh" },
+      "icon": "battery"
+    },
+    {
+      "id": "lipo_3_7v",
+      "name": "LiPo Battery (3.7V)",
+      "category": "power",
+      "type": "source",
+      "description": "Lithium Polymer rechargeable battery",
+      "pins": [
+        { "name": "POSITIVE", "type": "power", "direction": "output" },
+        { "name": "NEGATIVE", "type": "ground", "direction": "output" }
+      ],
+      "voltage": { "min": 3.0, "max": 4.2, "typical": 3.7 },
+      "current": { "typical": 2000, "max": 2000, "unit": "mAh" },
+      "icon": "battery-charging"
+    },
+    {
+      "id": "voltage_reg_7805",
+      "name": "7805 Voltage Regulator",
+      "category": "power",
+      "type": "regulator",
+      "description": "5V Linear Voltage Regulator",
+      "partNumber": "LM7805",
+      "pins": [
+        { "name": "INPUT", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "OUTPUT", "type": "power", "direction": "output" }
+      ],
+      "voltage": { "min": 7, "max": 25, "typical": 12 },
+      "current": { "typical": 500, "max": 1000, "unit": "mA" },
+      "icon": "divide"
+    },
+    {
+      "id": "ams1117_3v3",
+      "name": "AMS1117 3.3V LDO",
+      "category": "power",
+      "type": "regulator",
+      "description": "3.3V Low-Dropout voltage regulator",
+      "partNumber": "AMS1117-3.3",
+      "pins": [
+        { "name": "INPUT", "type": "power", "direction": "input" },
+        { "name": "GND", "type": "ground", "direction": "input" },
+        { "name": "OUTPUT", "type": "power", "direction": "output" }
+      ],
+      "voltage": { "min": 4.5, "max": 12, "typical": 5 },
+      "current": { "typical": 500, "max": 800, "unit": "mA" },
+      "icon": "divide"
+    },
+    {
+      "id": "tp4056",
+      "name": "TP4056 LiPo Charger",
+      "category": "power",
+      "type": "charger",
+      "description": "Linear Li-Ion/LiPo battery charger with protection",
+      "partNumber": "TP4056",
+      "pins": [
+        { "name": "IN+", "type": "power", "direction": "input" },
+        { "name": "IN-", "type": "ground", "direction": "input" },
+        { "name": "BAT+", "type": "power", "direction": "output" },
+        { "name": "BAT-", "type": "ground", "direction": "output" },
+        { "name": "OUT+", "type": "power", "direction": "output" },
+        { "name": "OUT-", "type": "ground", "direction": "output" }
+      ],
+      "voltage": { "min": 4.5, "max": 5.5, "typical": 5 },
+      "current": { "typical": 1000, "max": 1000, "unit": "mA" },
+      "icon": "battery-charging"
+    },
+    {
+      "id": "mt3608",
+      "name": "MT3608 Boost Converter",
+      "category": "power",
+      "type": "converter",
+      "description": "Step-up DC-DC boost converter (2V-24V input, up to 28V output)",
+      "partNumber": "MT3608",
+      "pins": [
+        { "name": "VIN+", "type": "power", "direction": "input" },
+        { "name": "VIN-", "type": "ground", "direction": "input" },
+        { "name": "VOUT+", "type": "power", "direction": "output" },
+        { "name": "VOUT-", "type": "ground", "direction": "output" }
+      ],
+      "voltage": { "min": 2, "max": 24, "typical": 5 },
+      "current": { "typical": 500, "max": 2000, "unit": "mA" },
+      "icon": "trending-up"
+    },
+    {
+      "id": "solar_panel_6v",
+      "name": "Solar Panel (6V 1W)",
+      "category": "power",
+      "type": "source",
+      "description": "Small solar panel for energy harvesting",
+      "pins": [
+        { "name": "POSITIVE", "type": "power", "direction": "output" },
+        { "name": "NEGATIVE", "type": "ground", "direction": "output" }
+      ],
+      "voltage": { "min": 0, "max": 7.2, "typical": 6 },
+      "current": { "typical": 166, "max": 200, "unit": "mA" },
+      "icon": "sun"
+    }
+  ]
+}
