@@ -49,7 +49,7 @@
  (microcontroller)   analogFilterBuilder    powerBuilder
      │                electricBuilder        …etc
      ▼
- pinAllocator → circuitBuilder → codeGenerator → validator
+ pinAllocator→ circuitBuilder→ codeGenerator→ validator
 ```
 
 ### Microcontroller pipeline
@@ -155,46 +155,6 @@ circuitry/
 
 ---
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm
-
-### Installation
-
-```bash
-git clone https://github.com/rahulnerella86/circuitry.git
-cd circuitry
-npm run install:all
-```
-
-### Configuration
-
-Copy the environment template and adjust if needed:
-
-```bash
-cp .env.example .env
-```
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` | `3001` | Express API server port |
-
-The Vite dev server proxies `/api` requests to the backend (configured in `client/vite.config.js`).
-
-### Run (development)
-
-```bash
-npm run dev
-```
-
-| Service | URL |
-|---------|-----|
-| Frontend | http://localhost:5173 |
-| API | http://localhost:3001 (or your `PORT` in `.env`) |
-
 ### Run (production)
 
 ```bash
@@ -294,118 +254,8 @@ Document pin allocation requirements (analog → ADC, I2C → shared bus, SPI �
 
 ---
 
-## Result Schema
 
-All domain engines return a unified object consumed by the UI:
 
-```json
-{
-  "platform": { "id": "esp32", "name": "ESP32 DevKit", "operatingVoltage": 3.3 },
-  "components": [
-    { "id": "dht11", "name": "DHT11", "category": "sensor", "voltage": { "min": 3, "max": 5.5, "typical": 3.3 } }
-  ],
-  "pinAssignments": [
-    { "componentId": "dht11", "componentName": "DHT11", "protocol": "digital", "pins": { "DATA": { "pinId": "GPIO4", "pinName": "D4" } } }
-  ],
-  "connections": [
-    { "id": "conn_1", "from": { "node": "node_dht11", "pin": "DATA" }, "to": { "node": "node_mcu", "pin": "GPIO4" }, "type": "signal", "color": "#6366f1" }
-  ],
-  "netlist": {
-    "version": "1.0",
-    "platform": "esp32",
-    "nets": { "VCC": { "name": "VCC", "type": "power", "connections": [] } },
-    "statistics": { "totalNets": 5, "totalConnections": 8, "totalNodes": 4 }
-  },
-  "code": "// Arduino .ino file contents…",
-  "explanation": "## Circuit Overview\n\n…",
-  "validation": {
-    "valid": true,
-    "errors": [],
-    "warnings": ["Estimated current draw is 70% of platform capacity."],
-    "info": [],
-    "summary": "⚠️ Circuit is valid with 1 warning(s)."
-  }
-}
-```
-
----
-
-## Client UI
-
-The app uses a split-panel layout:
-
-- **Left panel** — `InputForm` multi-step wizard (domain → platform → components → features)
-- **Right panel** — tabbed output once a circuit is generated
-
-| Tab | Component | Content |
-|-----|-----------|---------|
-| Info | `ExplanationPanel` | Markdown explanation + validation results |
-| Diagram | `CircuitDiagram` | SVG schematic with legend |
-| Parts | `ComponentList` | Component list with editable prices |
-| Code | `CodeViewer` | Syntax-highlighted `.ino` or truth table |
-| Instructions | `Instructions` | Step-by-step build checklist |
-| Netlist | `NetlistViewer` | JSON netlist with statistics |
-| Power | `PowerAnalysis` | Current draw and thermal notes |
-| PCB | `PCBGuide` | Layout recommendations |
-| BOM | `BOMExport` | Bill of materials export |
-
-State is managed by the `useCircuitGenerator` hook, which handles config, validation, API calls, and tab state.
-
----
-
-## NLM (Natural Language Mode)
-
-The `nlm` domain uses `nlmEngine.js` to match user queries against pre-built architectures in `trained_circuits.json` via keyword scoring (categories: power, fpga, analog, mixed-signal). It returns architecture diagrams, HDL snippets where applicable, and an AI-style explanation. This is a local, deterministic matcher — not a cloud LLM.
-
----
-
-## Development
-
-### Scripts
-
-```bash
-npm run dev          # Start client + server concurrently
-npm run dev:client   # Frontend only
-npm run dev:server   # Backend only
-npm run install:all  # Install root, server, and client dependencies
-```
-
-### Data validation
-
-```bash
-node server/scripts/validate_data.js
-node server/scripts/test_engine_suites.js
-```
-
-### Adding a new component
-
-1. Add an entry to `server/data/components.json` with pins, protocol, and voltage
-2. Add support rules to `server/data/rules.json` if needed
-3. Add a code template in `server/engine/codeGenerator.js` (`generateComponentCode` switch)
-4. Run validation scripts
-
-### Adding a new platform
-
-1. Add a full pin map to `server/data/platforms.json`
-2. Include I2C/SPI/UART bus definitions, reserved pins, and current limits
-3. Test pin allocation with multiple component combinations
-
----
-
-## Design Philosophy
-
-Circuitry is intentionally **deterministic and rule-based**:
-
-- Every output is reproducible from the same input
-- No external API keys or cloud services required
-- Component selection, pin assignment, and code generation follow explicit, inspectable rules
-- The JSON data files are the source of truth and can be extended without changing core engine logic
-
----
-
-## License
-
-Private project. All rights reserved.
 
 ---
 
