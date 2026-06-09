@@ -45,10 +45,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, async () => {
-  console.log(`\n⚡ Circuit Generator API Server running on http://localhost:${PORT}`);
-  console.log(`   ───────────────────────────────────────────`);
-  console.log(`   Generate:  POST /api/generate`);
-  console.log(`   Projects:  CRUD /api/projects`);
-  console.log(`   ───────────────────────────────────────────\n`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, async () => {
+    console.log(`\n⚡ Circuit Generator API Server running on http://localhost:${PORT}`);
+    console.log(`   ───────────────────────────────────────────`);
+    console.log(`   Generate:  POST /api/generate`);
+    console.log(`   Projects:  CRUD /api/projects`);
+    console.log(`   ───────────────────────────────────────────\n`);
+  });
+}
+
+module.exports = app;
